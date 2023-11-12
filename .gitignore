@@ -23,4 +23,4 @@ local.settings.json
 *.bak
 
 ### VisualStudioCode ###
-.vscode/      # Maybe .vscode/**/* instead - see comments
+.vscode/
