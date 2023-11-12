@@ -1,0 +1,26 @@
+
+# Mostly copied from my standard .hgignore
+Generated/*.cs
+packages/
+*.nupkg
+*.suo
+*.user
+bin/
+obj/
+lib/
+_*/
+Backup/
+UpgradeLog.htm
+TestResults/
+*.psess
+*.vsp
+*~
+*.orig
+.vs/
+test_*/
+local.settings.json
+*.ignore.*
+*.bak
+
+### VisualStudioCode ###
+.vscode/      # Maybe .vscode/**/* instead - see comments
