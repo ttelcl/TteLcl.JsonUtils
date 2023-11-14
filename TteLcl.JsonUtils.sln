@@ -11,7 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{C5F76759-1EF1-457D-8021-E171A6943413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TteLcl.JsonRewrite", "TteLcl.JsonRewrite\TteLcl.JsonRewrite.csproj", "{4C726DD2-C8DD-422A-8CA7-4A22366322FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TteLcl.JsonRewrite", "TteLcl.JsonRewrite\TteLcl.JsonRewrite.csproj", "{4C726DD2-C8DD-422A-8CA7-4A22366322FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{7178EC4B-74FD-4140-9FDE-B3BE3A04084C}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "jsonnormalize", "jsonnormalize\jsonnormalize.fsproj", "{E9B35A2D-9E53-40CD-80B6-E63AA4FBB1D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +27,17 @@ Global
 		{4C726DD2-C8DD-422A-8CA7-4A22366322FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C726DD2-C8DD-422A-8CA7-4A22366322FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C726DD2-C8DD-422A-8CA7-4A22366322FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9B35A2D-9E53-40CD-80B6-E63AA4FBB1D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9B35A2D-9E53-40CD-80B6-E63AA4FBB1D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9B35A2D-9E53-40CD-80B6-E63AA4FBB1D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9B35A2D-9E53-40CD-80B6-E63AA4FBB1D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4C726DD2-C8DD-422A-8CA7-4A22366322FE} = {C5F76759-1EF1-457D-8021-E171A6943413}
+		{E9B35A2D-9E53-40CD-80B6-E63AA4FBB1D6} = {7178EC4B-74FD-4140-9FDE-B3BE3A04084C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {664435FF-8188-4E52-A71C-2DD1281EBCC6}
