@@ -33,10 +33,15 @@ let private runNormalize o =
     | Auto ->
       if o.InputFile.EndsWith(".json") then
         o.InputFile.Substring(0, o.InputFile.Length-5) + ".normalized.json"
+      elif o.InputFile.EndsWith(".jsonc") then
+        // also convert JSONC -> JSON
+        o.InputFile.Substring(0, o.InputFile.Length-6) + ".normalized.json"
       else
         failwith $"Expecting input file name to end with '.json'"
   let jsonInput = File.ReadAllText(o.InputFile)
-  let jtokenIn = JToken.Parse(jsonInput);
+  let settings = new JsonLoadSettings()
+  settings.CommentHandling <- CommentHandling.Ignore
+  let jtokenIn = JToken.Parse(jsonInput, settings);
   let jTokenOut = jtokenIn |> JsonNormalizer.Normalize
   let jsonOut =
     jTokenOut.ToString(Formatting.Indented)
