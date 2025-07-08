@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "jsonstructure": {
+      "commandName": "Project",
+      "commandLineArgs": "analyze -f jsonstructure.deps.json"
+    }
+  }
+}

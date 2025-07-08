@@ -97,6 +97,16 @@ public class SlotTracker
   public string Path { get; }
 
   /// <summary>
+  /// A map that lists the types found in this slot (indexed by type name)
+  /// </summary>
+  public IReadOnlyDictionary<string, SlotValue> TypeSlotMap => _slotValueMap;
+
+  /// <summary>
+  /// The collection of types found in this slot
+  /// </summary>
+  public IReadOnlyCollection<SlotValue> TypeSlots => _slotValueMap.Values;
+
+  /// <summary>
   /// Process the given token appearing at this slot
   /// </summary>
   public void TrackValue(JToken? token)

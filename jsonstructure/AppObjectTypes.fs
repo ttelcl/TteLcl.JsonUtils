@@ -21,7 +21,6 @@ let private runObjectTypes o =
     let serializerSettings = new JsonSerializerSettings()
     serializerSettings.DateParseHandling <- DateParseHandling.None
     JsonConvert.DeserializeObject<JToken>(json, serializerSettings)
-    //JToken.Parse(json)
   let counters = new StringCounter(true)
   let trackerService = new TrackerService()
   let rec walkJson (node: JToken) =

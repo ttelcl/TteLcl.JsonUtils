@@ -49,6 +49,17 @@ public class SlotValueObject: SlotValue
     return new SlotValueObject(host, key, propertyNames);
   }
 
+  /// <summary>
+  /// Mapping of the property names to the trackers handling the
+  /// observed property values
+  /// </summary>
+  public IReadOnlyDictionary<string, SlotTracker> PropertyMap => _propertyTrackers;
+
+  /// <summary>
+  /// The collection of property value trackers
+  /// </summary>
+  public IReadOnlyCollection<SlotTracker> Properties => _propertyTrackers.Values;
+
   /// <inheritdoc/>
   protected override void ObserveImplementation(JToken token)
   {

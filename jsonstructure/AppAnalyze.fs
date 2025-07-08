@@ -3,9 +3,13 @@
 open System
 open System.IO
 
+open Newtonsoft.Json
+open Newtonsoft.Json.Linq
+
+open TteLcl.JsonRewrite.ModelTracking
+
 open CommonTools
 open ColorPrint
-open Usage
 
 type private Options = {
   InputFile: string
@@ -13,6 +17,15 @@ type private Options = {
 }
 
 let private runAnalyze o =
+  cp $"Loading \fg{o.InputFile}\f0."
+  let input =
+    let json = File.ReadAllText(o.InputFile)
+    let serializerSettings = new JsonSerializerSettings()
+    serializerSettings.DateParseHandling <- DateParseHandling.None
+    JsonConvert.DeserializeObject<JToken>(json, serializerSettings)
+  let trackerService = new TrackerService()
+  let rootTracker = SlotTracker.CreateRootSlot(trackerService)
+  rootTracker.TrackValue(input)
   cp "\frNot yet implemented\f0."
   1
 
