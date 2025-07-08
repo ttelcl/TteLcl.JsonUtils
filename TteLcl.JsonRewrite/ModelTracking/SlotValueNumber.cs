@@ -48,7 +48,7 @@ public class SlotValueNumber: SlotValue
       var value =
         token.Type switch {
           JTokenType.Float => (double)v,
-          JTokenType.Integer => (double)(int)v,
+          JTokenType.Integer => (double)(long)v,
           _ =>
             throw new InvalidOperationException(
               $"Internal error - this code path should only see numbers"),

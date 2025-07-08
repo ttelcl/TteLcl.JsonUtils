@@ -66,6 +66,7 @@ public abstract class SlotValue
           JTokenType.String => new SlotValueString(host),
           JTokenType.Integer or JTokenType.Float => new SlotValueNumber(host),
           JTokenType.Boolean => new SlotValueBoolean(host),
+          JTokenType.Null => new SlotValueNull(host),
           _ => throw new InvalidOperationException(
             $"Unrecognized JSON value type '{v.Type}'"),
         },
