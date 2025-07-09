@@ -36,7 +36,7 @@ public class SlotValueArray: SlotValue
   /// <summary>
   /// A mapping from type keys to SlotValues that observed that type
   /// </summary>
-  public IReadOnlyDictionary<string, SlotValue> Childmap => _childMap;
+  public IReadOnlyDictionary<string, SlotValue> ChildMap => _childMap;
 
   /// <summary>
   /// All the child values (shorthand ChildMap.Values)

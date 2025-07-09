@@ -7,6 +7,7 @@ open Newtonsoft.Json
 open Newtonsoft.Json.Linq
 
 open TteLcl.JsonRewrite.ModelTracking
+open TteLcl.JsonRewrite.ModelTracking.Exporting
 
 open CommonTools
 open ColorPrint
@@ -16,18 +17,42 @@ type private Options = {
   OutputFile: string
 }
 
+let private createExporter o =
+  let outFileShortName = o.OutputFile |> Path.GetFileName
+  let reverseOutputNameSegments =
+    outFileShortName.ToLowerInvariant().Split('.')
+    |> Seq.toList
+    |> List.rev
+  match reverseOutputNameSegments with
+  | "json" :: "structure" :: _ ->
+    new JsonFileFullExporter() |> Some
+  | _ ->
+    cp $"\frUnsupported output format in \fo{outFileShortName}\f0."
+    cp "Supported output file formats are:"
+    cp "  *\fg.structure.json\f0"
+    cp "(other formats may be added in the future)"
+    None
+
 let private runAnalyze o =
-  cp $"Loading \fg{o.InputFile}\f0."
-  let input =
-    let json = File.ReadAllText(o.InputFile)
-    let serializerSettings = new JsonSerializerSettings()
-    serializerSettings.DateParseHandling <- DateParseHandling.None
-    JsonConvert.DeserializeObject<JToken>(json, serializerSettings)
-  let trackerService = new TrackerService()
-  let rootTracker = SlotTracker.CreateRootSlot(trackerService)
-  rootTracker.TrackValue(input)
-  cp "\frNot yet implemented\f0."
-  1
+  let exporterOption = o |> createExporter
+  match exporterOption with
+  | None ->
+    1
+  | Some(exporter) ->
+    cp $"Loading \fg{o.InputFile}\f0."
+    let input =
+      let json = File.ReadAllText(o.InputFile)
+      let serializerSettings = new JsonSerializerSettings()
+      serializerSettings.DateParseHandling <- DateParseHandling.None
+      JsonConvert.DeserializeObject<JToken>(json, serializerSettings)
+    let trackerService = new TrackerService()
+    let rootTracker = SlotTracker.CreateRootSlot(trackerService)
+    rootTracker.TrackValue(input)
+    cp $"Saving \fg{o.OutputFile}\f0."
+    let tmpName = o.OutputFile + ".tmp"
+    exporter.Export(tmpName, rootTracker)
+    o.OutputFile |> finishFile
+    0
 
 let run args =
   let rec parseMore o args =
