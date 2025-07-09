@@ -116,8 +116,17 @@ public class JsonFileFullExporter: JsonModelExporter
   private JObject ExportNumberValue(SlotValueNumber value)
   {
     var result = ExportValueCommon(value);
-    result["#min"] = value.MinValue;
-    result["#max"] = value.MaxValue;
+    result["#integer"] = value.IsInteger;
+    if(value.IsInteger)
+    {
+      result["#min"] = (long)value.MinValue;
+      result["#max"] = (long)value.MaxValue;
+    }
+    else
+    {
+      result["#min"] = value.MinValue;
+      result["#max"] = value.MaxValue;
+    }
     return result;
   }
 

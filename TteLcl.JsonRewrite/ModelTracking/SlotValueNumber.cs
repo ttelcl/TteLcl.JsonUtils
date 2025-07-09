@@ -39,20 +39,31 @@ public class SlotValueNumber: SlotValue
   public double MaxValue { get; private set; } = Double.MinValue;
 
   /// <summary>
+  /// True as long as only integer values were observed, no floating point values.
+  /// </summary>
+  public bool IsInteger { get; private set; } = true;
+
+  /// <summary>
   /// Handles processing of integers and floating point numbers
   /// </summary>
   protected override void ObserveImplementation(JToken token)
   {
     if(token is JValue v)
     {
-      var value =
-        token.Type switch {
-          JTokenType.Float => (double)v,
-          JTokenType.Integer => (double)(long)v,
-          _ =>
-            throw new InvalidOperationException(
-              $"Internal error - this code path should only see numbers"),
-        };
+      double value;
+      switch(token.Type)
+      {
+        case JTokenType.Float:
+          value = (double)v;
+          IsInteger = false; // side effect -> we need switch statement, not switch expression
+          break;
+        case JTokenType.Integer:
+          value = (double)(long)v;
+          break;
+        default:
+          throw new InvalidOperationException(
+            $"Internal error - this code path should only see numbers");
+      }
       if(value < MinValue)
       {
         MinValue = value;
