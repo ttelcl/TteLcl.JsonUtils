@@ -72,7 +72,7 @@ public class SlotValueString: SlotValue
         else
         {
           TrackedValues.Increment(txt);
-          if(TrackedValues.Count > 15)
+          if(TrackedValues.Count > 50) // track up to 50, but consider emitting if < 10 or so
           {
             // stop tracking
             TrackedValues = null;

@@ -141,9 +141,11 @@ public class JsonFileFullExporter: JsonModelExporter
       if(tracker.Count > 0)
       {
         result["#distinct"] = tracker.Count;
-        if(tracker.Count * 3 < value.Count * 2)
+        if((tracker.Count * 3 < value.Count * 2 && tracker.Count<=10) || tracker.Count <= 3)
         {
           // No more distinct values than 2/3 of the total number of strings observed
+          // and no more than 10 distinct values,
+          // or only a tiny number of distinct values (in particular: 1)
           var keys = new JObject();
           result["#values"] = keys;
           var counts =
