@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 namespace TteLcl.JsonRewrite.ModelTracking;
 
 /// <summary>
-/// Description of SlotValueString
+/// Handles observations of string values
 /// </summary>
 public class SlotValueString: SlotValue
 {
@@ -25,6 +25,7 @@ public class SlotValueString: SlotValue
     SlotTracker host)
     : base(host, "string")
   {
+    TrackedValues = new StringCounter(true);
   }
 
   /// <summary>
@@ -36,6 +37,12 @@ public class SlotValueString: SlotValue
   /// Longest observed string
   /// </summary>
   public int MaxLength { get; private set; } = 0;
+
+  /// <summary>
+  /// Tracks individual values, or null after heuristics decide to disable
+  /// this (starts out non-null)
+  /// </summary>
+  public StringCounter? TrackedValues { get; private set; }
 
   /// <summary>
   /// Process an observed string
@@ -54,7 +61,24 @@ public class SlotValueString: SlotValue
       {
         MaxLength = txtLength;
       }
-      // Todo: heuristics to find 'common' values
+      if(TrackedValues != null)
+      {
+        if(txt.Length > 80
+          || txt.IndexOfAny(__showstopperChars)>=0 )
+        {
+          // stop tracking
+          TrackedValues = null;
+        }
+        else
+        {
+          TrackedValues.Increment(txt);
+          if(TrackedValues.Count > 15)
+          {
+            // stop tracking
+            TrackedValues = null;
+          }
+        }
+      }
     }
     else
     {
@@ -62,4 +86,5 @@ public class SlotValueString: SlotValue
         $"Internal error - this code path should only see strings");
     }
   }
+  private static char[] __showstopperChars = "\r\n".ToCharArray();
 }

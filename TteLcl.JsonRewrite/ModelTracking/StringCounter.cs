@@ -66,6 +66,16 @@ public class StringCounter
   public IReadOnlyCollection<string> Keys => _countMap.Keys;
 
   /// <summary>
+  /// Get the underlying count map
+  /// </summary>
+  public IReadOnlyDictionary<string, int> Map => _countMap;
+
+  /// <summary>
+  /// The number of distinct keys
+  /// </summary>
+  public int Count => _countMap.Count;
+
+  /// <summary>
   /// Get or set the count. 
   /// </summary>
   public int this[string key] {

@@ -135,6 +135,28 @@ public class JsonFileFullExporter: JsonModelExporter
     var result = ExportValueCommon(value);
     result["#minlen"] = value.MinLength;
     result["#maxlen"] = value.MaxLength;
+    if(value.TrackedValues is not null)
+    {
+      var tracker = value.TrackedValues;
+      if(tracker.Count > 0)
+      {
+        result["#distinct"] = tracker.Count;
+        if(tracker.Count * 3 < value.Count * 2)
+        {
+          // No more distinct values than 2/3 of the total number of strings observed
+          var keys = new JObject();
+          result["#values"] = keys;
+          var counts =
+            from kvp in tracker.Map
+            orderby kvp.Value descending, kvp.Key
+            select kvp;
+          foreach(var count in counts)
+          {
+            keys[count.Key] = count.Value;
+          }
+        }
+      }
+    }
     return result;
   }
 
