@@ -73,6 +73,7 @@ public class JsonFileFullExporter: JsonModelExporter
     var result = ExportValueCommon(array);
     result["#minlen"] = array.MinLength;
     result["#maxlen"] = array.MaxLength;
+    result["#array-distinct-types"] = array.ChildMap.Count;
     var content = new JArray();
     result["#content"] = content;
     var values =
@@ -89,6 +90,7 @@ public class JsonFileFullExporter: JsonModelExporter
   private JObject ExportObjectValue(SlotValueObject value)
   {
     var result = ExportValueCommon(value);
+    result["#prop-count"] = value.PropertyMap.Count;
     var pairs =
       from kvp in value.PropertyMap
       orderby kvp.Key
