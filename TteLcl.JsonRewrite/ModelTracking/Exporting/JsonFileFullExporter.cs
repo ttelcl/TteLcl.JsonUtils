@@ -173,7 +173,8 @@ public class JsonFileFullExporter: JsonModelExporter
   {
     var o = new JObject {
       ["#type"] = value.TypeKey,
-      ["#count"] = value.Count
+      ["#count"] = value.Count,
+      ["#path"] = value.Host.Path,
     };
     return o;
   }
